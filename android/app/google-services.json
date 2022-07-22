@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "682110560483",
+    "project_id": "office-sports",
+    "storage_bucket": "office-sports.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:682110560483:android:238f74828b0f096f3ebdd6",
+        "android_client_info": {
+          "package_name": "com.example.office_sports_android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "682110560483-kjtppqsfos0boblv4c97436krlr0gdt8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.office_sports_android",
+            "certificate_hash": "aeec78375f49e63adbb8458464943e9507938501"
+          }
+        },
+        {
+          "client_id": "682110560483-jkebdkmrjbi75k0tslhkn5iap8me002k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnOpWyIhQbEkEEAVICCuoCIR6NZvPjpYU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "682110560483-jkebdkmrjbi75k0tslhkn5iap8me002k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
