@@ -30,6 +30,7 @@ dependencies:
   firebase_auth: ^3.5.0
   firebase_core: ^1.20.0
   google_sign_in: ^5.4.0
+  package_info_plus: ^1.4.3
   flutter:
     sdk: flutter
 
