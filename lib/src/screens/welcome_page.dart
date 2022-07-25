@@ -41,9 +41,73 @@ class WelcomePage extends StatelessWidget {
                             fontSize: 30.0)),
                   ])),
               SizedBox(height: size.height * 0.1),
-              const Text(
-                '🏓 - ⚽️',
-                style: TextStyle(fontSize: 40),
+              Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  Container(
+                    alignment: Alignment.center,
+                    width: 100,
+                    height: 100,
+                  ),
+                  Positioned(
+                    right: 30,
+                    top: 0,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.teal,
+                        border: Border.all(
+                          width: 5,
+                          color: Colors.white,
+                        ),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Colors.black,
+                            blurRadius: 2.0,
+                            spreadRadius: 2.0,
+                            offset: Offset(5.0, 5.0),
+                          ),
+                        ],
+                      ),
+                      alignment: Alignment.center,
+                      width: 100,
+                      height: 100,
+                      child: const Text(
+                        '🏓',
+                        style: TextStyle(fontSize: 50.0),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    top: -20,
+                    left: 30,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.orange,
+                        border: Border.all(
+                          width: 5,
+                          color: Colors.white,
+                        ),
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Colors.black,
+                            blurRadius: 2.0,
+                            spreadRadius: 2.0,
+                            offset: Offset(5.0, 5.0),
+                          ),
+                        ],
+                      ),
+                      alignment: Alignment.center,
+                      width: 100,
+                      height: 100,
+                      child: const Text(
+                        '⚽️',
+                        style: TextStyle(fontSize: 50.0),
+                      ),
+                    ),
+                  ),
+                ],
               ),
               SizedBox(height: size.height * 0.1),
               SizedBox(
