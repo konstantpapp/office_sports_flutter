@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'src/screens/welcome_page.dart';
+import 'src/screens/home_page.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
@@ -26,7 +27,6 @@ class MyApp extends StatelessWidget {
 class Navigate {
   static Map<String, Widget Function(BuildContext)> routes = {
     '/': (context) => WelcomePage(),
-    // '/sign-in': (context) => SignInPage(),
-    // '/home': (context) => HomePage()
+    '/home': (context) => const HomePage()
   };
 }

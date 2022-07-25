@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import '../shared/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import '../widgets/google_sign_in.dart';
 
 class WelcomePage extends StatelessWidget {
   @override
@@ -110,21 +111,7 @@ class WelcomePage extends StatelessWidget {
                 ],
               ),
               SizedBox(height: size.height * 0.1),
-              SizedBox(
-                width: size.width * 0.7,
-                child: OutlinedButton(
-                  onPressed: () {},
-                  style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.white),
-                      side: MaterialStateProperty.all<BorderSide>(
-                          BorderSide.none)),
-                  child: const Text(
-                    'Sign in with Google',
-                    style: TextStyle(color: Constants.primaryColor),
-                  ),
-                ),
-              ),
+              const GoogleSignIn(),
               SizedBox(height: size.height * 0.1),
               FutureBuilder<PackageInfo>(
                 future: PackageInfo.fromPlatform(),
