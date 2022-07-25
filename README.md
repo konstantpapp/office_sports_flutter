@@ -2,6 +2,8 @@
 
 Supplementary project to [Office Sports (iOS)](https://github.com/oyvinddd/officesports).
 
+![welcome page](https://github.com/konstantpapp/office_sports_android/tree/main/assets/welcome_page.png?raw=true)
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
