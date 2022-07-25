@@ -43,7 +43,7 @@ class _GoogleSignInState extends State<GoogleSignIn> {
                       MaterialStateProperty.all<Color>(Colors.white),
                   side: MaterialStateProperty.all<BorderSide>(BorderSide.none)),
               child: const Text(
-                'Google sign in',
+                'Sign in with Google',
                 style: TextStyle(
                     color: Constants.primaryColor, fontWeight: FontWeight.bold),
               ),
