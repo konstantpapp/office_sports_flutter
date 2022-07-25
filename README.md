@@ -2,7 +2,7 @@
 
 Supplementary project to [Office Sports (iOS)](https://github.com/oyvinddd/officesports).
 
-![welcome page](https://github.com/konstantpapp/office_sports_android/blob/main/assets/welcome_page.png)
+![welcome page](https://github.com/konstantpapp/office_sports_android/blob/main/assets/welcome_page.png | width=200)
 
 ## Getting Started
 
