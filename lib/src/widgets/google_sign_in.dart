@@ -45,7 +45,9 @@ class _GoogleSignInState extends State<GoogleSignIn> {
               child: const Text(
                 'Sign in with Google',
                 style: TextStyle(
-                    color: Constants.primaryColor, fontWeight: FontWeight.bold),
+                  color: Constants.primaryColor,
+                  fontSize: 18,
+                ),
               ),
             ),
           )

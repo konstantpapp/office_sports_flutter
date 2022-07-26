@@ -27,4 +27,8 @@ class FirebaseService {
     await _googleSignIn.signOut();
     await _auth.signOut();
   }
+
+  String? getUidOrNull() {
+    return _auth.currentUser?.uid;
+  }
 }
