@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../mixins/validation_mixin.dart';
 import '../shared/constants.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
+import '../services/firestore_service.dart';
 
 class ProfileModal extends StatefulWidget {
   @override
@@ -180,6 +181,8 @@ class ProfileModalState extends State<ProfileModal> with ValidationMixin {
         if (formKey.currentState!.validate()) {
           formKey.currentState!.save();
           formKey.currentState!.reset();
+          firestore.createOrUpdatePlayerProfile(nickname, emoji);
+          Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
         }
       },
       child: const Text(

@@ -33,6 +33,7 @@ dependencies:
   package_info_plus: ^1.4.3
   cloud_firestore: ^3.4.1
   emoji_picker_flutter: ^1.3.0
+  floating_bottom_navigation_bar: ^1.5.2
   flutter:
     sdk: flutter
 
