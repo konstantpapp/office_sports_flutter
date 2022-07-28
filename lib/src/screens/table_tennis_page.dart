@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:office_sports_android/src/models/player_model.dart';
 import 'package:office_sports_android/src/navigation/screen_tabs.dart';
+import 'package:office_sports_android/src/navigation/table_tabs.dart';
 import 'package:office_sports_android/src/widgets/profile_picture.dart';
 import '../shared/constants.dart';
 
@@ -30,6 +31,10 @@ class TableTennisPage extends StatelessWidget {
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
                 ),
+              ),
+              SizedBox(height: size.height * 0.05),
+              const Expanded(
+                child: TableTabs(),
               ),
             ],
           ),

@@ -31,6 +31,16 @@ class NotificationsPage extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              SizedBox(height: size.height * 0.15),
+              const Text(
+                'Your match invitations will show\nup here',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey,
+                ),
+              ),
             ],
           ),
         ),

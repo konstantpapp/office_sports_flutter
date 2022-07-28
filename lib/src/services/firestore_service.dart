@@ -5,7 +5,7 @@ class Firestore {
   final FirebaseFirestore _database = FirebaseFirestore.instance;
   final FirebaseService _firebase = FirebaseService();
 
-  Stream<QuerySnapshot> get _playersStream =>
+  Stream<QuerySnapshot> get playersStream =>
       _database.collection('players').snapshots();
   Stream<QuerySnapshot> get _matchesStream =>
       _database.collection('matches').snapshots();
