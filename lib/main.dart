@@ -1,4 +1,3 @@
-import 'package:camera/camera.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:office_sports_android/src/models/screen_arguments.dart';
 import 'package:office_sports_android/src/screens/camera_page.dart';
@@ -12,16 +11,10 @@ import 'package:flutter/material.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  final cameras = await availableCameras();
-  final firstCamera = cameras.first;
-  runApp(MyApp(camera: firstCamera));
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({required this.camera});
-
-  final CameraDescription camera;
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -36,7 +29,7 @@ class MyApp extends StatelessWidget {
         final args = settings.arguments as ScreenArguments;
         if (settings.name == CameraPage.routeName) {
           return PageRouteBuilder(pageBuilder: (_, __, ___) {
-            return CameraPage(player: args.player, camera: camera);
+            return CameraPage(player: args.player);
           });
         } else if (settings.name == TableTennisPage.routeName) {
           return PageRouteBuilder(pageBuilder: (_, __, ___) {
