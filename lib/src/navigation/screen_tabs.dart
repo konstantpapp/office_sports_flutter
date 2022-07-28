@@ -2,6 +2,7 @@ import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.da
 import 'package:flutter/material.dart';
 import 'package:office_sports_android/src/models/player_model.dart';
 import 'package:office_sports_android/src/models/screen_arguments.dart';
+import 'package:office_sports_android/src/screens/camera_page.dart';
 import 'package:office_sports_android/src/screens/foosball_page.dart';
 import 'package:office_sports_android/src/screens/notifications_page.dart';
 import 'package:office_sports_android/src/screens/table_tennis_page.dart';
@@ -22,7 +23,7 @@ class ScreenTabsState extends State<ScreenTabs> {
   static int _screenIndex = 1;
 
   Map<int, String> tabScreens = {
-    0: '/camera',
+    0: CameraPage.routeName,
     1: TableTennisPage.routeName,
     2: FoosballPage.routeName,
     3: NotificationsPage.routeName
