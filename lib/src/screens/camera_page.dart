@@ -74,7 +74,7 @@ class CameraPageState extends State<CameraPage> {
               borderRadius: BorderRadius.all(Radius.circular(10)),
             ),
             padding: const EdgeInsets.all(10.0),
-            margin: const EdgeInsets.only(bottom: 20.0),
+            margin: const EdgeInsets.only(bottom: 80.0),
             child: const Text(
               "If you're the winner of a match, scan\nthe loser's QR code to register the\nmatch result.",
               style: TextStyle(color: Constants.primaryTextColor, fontSize: 16),

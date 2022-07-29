@@ -51,6 +51,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       // appBar: AppBar(
       //   actions: <Widget>[
@@ -88,8 +89,11 @@ class _HomePageState extends State<HomePage> {
                     });
                   },
                 ),
+      extendBody: true,
       bottomNavigationBar: FloatingNavbar(
-        backgroundColor: Colors.white,
+        width: size.width * 0.7,
+        margin: const EdgeInsets.only(bottom: 20.0),
+        backgroundColor: const Color.fromARGB(255, 244, 241, 241),
         selectedBackgroundColor: Constants.primarySurfaceColor,
         selectedItemColor: Constants.primaryColor,
         unselectedItemColor: Constants.primaryColor,
