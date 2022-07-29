@@ -1,8 +1,8 @@
 # Office Sports (Android)
 
-Supplementary project to [Office Sports (iOS)](https://github.com/oyvinddd/officesports).
+Partner project to [Office Sports (iOS)](https://github.com/oyvinddd/officesports).
 
-<img src="https://github.com/konstantpapp/office_sports_android/blob/main/assets/welcome_page.png" width=400px>
+<img src="https://github.com/konstantpapp/office_sports_android/blob/main/assets/welcome_page.png" width=200px>
 
 ## Getting Started
 

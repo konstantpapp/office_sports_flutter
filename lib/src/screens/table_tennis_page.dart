@@ -32,8 +32,11 @@ class TableTennisPage extends StatelessWidget {
                 ),
               ),
               SizedBox(height: size.height * 0.05),
-              const Expanded(
-                child: TableTabs(),
+              Expanded(
+                child: Container(
+                  padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+                  child: const TableTabs(),
+                ),
               ),
             ],
           ),

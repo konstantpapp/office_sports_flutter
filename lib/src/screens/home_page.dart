@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
 import 'package:office_sports_android/src/modals/profile_modal.dart';
 import 'package:office_sports_android/src/screens/camera_page.dart';
@@ -7,7 +6,6 @@ import 'package:office_sports_android/src/screens/notifications_page.dart';
 import 'package:office_sports_android/src/screens/table_tennis_page.dart';
 import '../services/firestore_service.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import '../shared/constants.dart';
 import '../models/player_model.dart';
 
@@ -15,15 +13,12 @@ class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  HomePageState createState() => HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
-  final Stream<QuerySnapshot> _playersStream =
-      FirebaseFirestore.instance.collection('playerprofiles').snapshots();
-  User? user = FirebaseAuth.instance.currentUser;
-  int _activePage = 1;
+class HomePageState extends State<HomePage> {
   final _pageViewController = PageController(initialPage: 1);
+  int _activePage = 1;
   Player? player;
   bool isPlayerFetched = false;
 
@@ -98,7 +93,7 @@ class _HomePageState extends State<HomePage> {
         selectedItemColor: Constants.primaryColor,
         unselectedItemColor: Constants.primaryColor,
         items: [
-          FloatingNavbarItem(icon: Icons.qr_code),
+          FloatingNavbarItem(icon: Icons.qr_code_scanner),
           FloatingNavbarItem(icon: Icons.sports_tennis),
           FloatingNavbarItem(icon: Icons.sports_soccer),
           FloatingNavbarItem(icon: Icons.notifications),
