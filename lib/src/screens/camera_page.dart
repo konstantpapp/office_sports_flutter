@@ -1,7 +1,6 @@
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:flutter/material.dart';
 import '../models/player_model.dart';
-import '../navigation/screen_tabs.dart';
 import '../shared/constants.dart';
 
 class CameraPage extends StatefulWidget {
@@ -83,7 +82,6 @@ class CameraPageState extends State<CameraPage> {
           ),
         ],
       ),
-      bottomNavigationBar: ScreenTabs(player: player),
     );
   }
 }
