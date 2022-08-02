@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'src/services/firestore_service.dart';
 import 'package:office_sports_android/src/models/screen_arguments.dart';
 import 'package:office_sports_android/src/screens/camera_page.dart';
 import 'package:office_sports_android/src/screens/foosball_page.dart';
@@ -8,9 +9,12 @@ import 'src/screens/welcome_page.dart';
 import 'src/screens/home_page.dart';
 import 'package:flutter/material.dart';
 
+Map<String, dynamic>? profileData;
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  profileData = await firestore.getPlayerProfile();
   runApp(MyApp());
 }
 
@@ -20,14 +24,18 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Office Sports',
-      initialRoute: '/',
+      initialRoute: profileData == null ? '/' : '/home',
       routes: Navigate.routes,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       onGenerateRoute: (settings) {
         final args = settings.arguments as ScreenArguments;
-        if (settings.name == CameraPage.routeName) {
+        if (settings.name == HomePage.routeName) {
+          return PageRouteBuilder(pageBuilder: (_, __, ___) {
+            return HomePage(profileData: profileData);
+          });
+        } else if (settings.name == CameraPage.routeName) {
           return PageRouteBuilder(pageBuilder: (_, __, ___) {
             return CameraPage(player: args.player);
           });
@@ -53,6 +61,6 @@ class MyApp extends StatelessWidget {
 class Navigate {
   static Map<String, Widget Function(BuildContext)> routes = {
     '/': (context) => WelcomePage(),
-    '/home': (context) => const HomePage(),
+    '/home': (context) => HomePage(profileData: profileData),
   };
 }

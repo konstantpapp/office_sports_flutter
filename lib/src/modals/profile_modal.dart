@@ -3,6 +3,7 @@ import '../mixins/validation_mixin.dart';
 import '../shared/constants.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import '../services/firestore_service.dart';
+import '../screens/home_page.dart';
 
 class ProfileModal extends StatefulWidget {
   @override
@@ -26,7 +27,7 @@ class ProfileModalState extends State<ProfileModal> with ValidationMixin {
 
   @override
   Widget build(context) {
-    return const Text('build');
+    return Container();
   }
 
   void showModal(BuildContext context) {
@@ -182,7 +183,12 @@ class ProfileModalState extends State<ProfileModal> with ValidationMixin {
           formKey.currentState!.save();
           formKey.currentState!.reset();
           firestore.createOrUpdatePlayerProfile(nickname, emoji);
-          Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => HomePage(
+                      profileData: {'nickname': nickname, 'emoji': emoji})),
+              (route) => false);
         }
       },
       child: const Text(

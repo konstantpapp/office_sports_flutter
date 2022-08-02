@@ -4,28 +4,33 @@ import 'package:office_sports_android/src/screens/camera_page.dart';
 import 'package:office_sports_android/src/screens/foosball_page.dart';
 import 'package:office_sports_android/src/screens/notifications_page.dart';
 import 'package:office_sports_android/src/screens/table_tennis_page.dart';
-import '../services/firestore_service.dart';
 import 'package:flutter/material.dart';
 import '../shared/constants.dart';
 import '../models/player_model.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  HomePage({Key? key, this.profileData}) : super(key: key);
+  Map<String, dynamic>? profileData;
+
+  static const routeName = '/home';
 
   @override
-  HomePageState createState() => HomePageState();
+  HomePageState createState() => HomePageState(profileData: profileData);
 }
 
 class HomePageState extends State<HomePage> {
+  HomePageState({this.profileData});
   final _pageViewController = PageController(initialPage: 1);
   int _activePage = 1;
+  Map<String, dynamic>? profileData;
   Player? player;
   bool isPlayerFetched = false;
 
   Future fetchPlayer() async {
-    Map<String, dynamic>? data = await firestore.getPlayerProfile();
-    if (data != null) {
-      player = Player.fromJson(data);
+    if (profileData != null) {
+      player = Player.fromJson(profileData!);
+    } else {
+      player == null;
     }
     setState(() {
       isPlayerFetched = true;

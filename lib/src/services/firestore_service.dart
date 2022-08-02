@@ -26,10 +26,10 @@ class Firestore {
         .catchError((error) => print('Failed to add user: $error'));
   }
 
-  Future<Map<String, dynamic>>? getPlayerProfile() async {
+  Future<Map<String, dynamic>?> getPlayerProfile() async {
     var uid = _firebase.getUidOrNull();
     final result = await _database.collection('players').doc(uid).get();
-    return result.data()!;
+    return result.data();
   }
 }
 
