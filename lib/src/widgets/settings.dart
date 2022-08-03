@@ -46,12 +46,12 @@ class Settings extends StatelessWidget {
                       itemBuilder: (_, int index) {
                         return ListTile(
                           onTap: () {
-                            Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => options[index].setting!,
-                                ),
-                                (route) => false);
+                            showModalBottomSheet<void>(
+                                isScrollControlled: true,
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return options[index].setting!;
+                                });
                           },
                           leading: Icon(
                             options[index].icon,
