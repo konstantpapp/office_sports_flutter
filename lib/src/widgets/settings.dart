@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'settings/season_results.dart';
+import 'settings/preferences.dart';
+import 'settings/about.dart';
 import '../modals/profile_modal.dart';
-import '../widgets/sign_out_dialog.dart';
+import 'settings/sign_out_dialog.dart';
 import '../shared/constants.dart';
 import '../models/settings_option.dart';
 import '../models/player_model.dart';
@@ -12,14 +15,11 @@ class Settings extends StatelessWidget {
   @override
   Widget build(context) {
     final List<SettingsOption> options = [
-      SettingsOption(Icons.star_outline, 'Season results'),
+      SettingsOption(Icons.star_outline, 'Season results', SeasonResults()),
       SettingsOption(
-        Icons.person_outline,
-        'Update profile',
-        ProfileModal(player),
-      ),
-      SettingsOption(Icons.checklist_outlined, 'Preferences'),
-      SettingsOption(Icons.info_outline, 'About'),
+          Icons.person_outline, 'Update profile', ProfileModal(player)),
+      SettingsOption(Icons.checklist_outlined, 'Preferences', Preferences()),
+      SettingsOption(Icons.info_outline, 'About', About()),
       SettingsOption(Icons.logout, 'Sign out', SignOutDialog()),
     ];
 

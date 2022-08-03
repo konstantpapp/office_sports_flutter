@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../services/firebase_service.dart';
+import '../../services/firebase_service.dart';
 
 class SignOutDialog extends StatelessWidget {
   @override
