@@ -53,28 +53,11 @@ class HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      // appBar: AppBar(
-      //   actions: <Widget>[
-      //     IconButton(
-      //       icon: const Icon(
-      //         Icons.logout,
-      //         color: Colors.black,
-      //       ),
-      //       onPressed: () async {
-      //         FirebaseService service = FirebaseService();
-      //         await service.signOutFromGoogle();
-      //         Navigator.pushReplacementNamed(context, '/');
-      //       },
-      //     )
-      //   ],
-      //   systemOverlayStyle: SystemUiOverlayStyle.dark,
-      //   title: const Text("Home"),
-      // ),
       backgroundColor: Constants.backgroundColor,
       body: !isPlayerFetched
           ? const Center(child: CircularProgressIndicator())
           : player == null
-              ? ProfileModal()
+              ? const ProfileModal()
               : PageView(
                   controller: _pageViewController,
                   children: [

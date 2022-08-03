@@ -32,3 +32,5 @@ class FirebaseService {
     return _auth.currentUser?.uid;
   }
 }
+
+FirebaseService firebase = FirebaseService();

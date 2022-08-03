@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:office_sports_android/src/modals/profile_modal.dart';
+import '../modals/profile_modal.dart';
+import '../widgets/sign_out_dialog.dart';
 import '../shared/constants.dart';
 import '../models/settings_option.dart';
 import '../models/player_model.dart';
@@ -19,7 +20,7 @@ class Settings extends StatelessWidget {
       ),
       SettingsOption(Icons.checklist_outlined, 'Preferences'),
       SettingsOption(Icons.info_outline, 'About'),
-      SettingsOption(Icons.logout, 'Sign out'),
+      SettingsOption(Icons.logout, 'Sign out', SignOutDialog()),
     ];
 
     return Align(
@@ -46,12 +47,18 @@ class Settings extends StatelessWidget {
                       itemBuilder: (_, int index) {
                         return ListTile(
                           onTap: () {
-                            showModalBottomSheet<void>(
-                                isScrollControlled: true,
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return options[index].setting!;
-                                });
+                            options[index].title != 'Sign out'
+                                ? showModalBottomSheet<void>(
+                                    isScrollControlled: true,
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return options[index].setting!;
+                                    })
+                                : showDialog<String>(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return options[index].setting!;
+                                    });
                           },
                           leading: Icon(
                             options[index].icon,
