@@ -37,47 +37,55 @@ class MatchHistoryState extends State<MatchHistory> {
                   //   subtitle: Text(match.winner.nickname),
                   //   title: Text(match.loser.nickname),
                   // );
-                  return Column(
-                    children: [
-                      RichText(
-                        softWrap: true,
-                        text: TextSpan(
-                          style: const TextStyle(
-                              fontSize: 18.0, color: Colors.black),
-                          children: <TextSpan>[
-                            TextSpan(
-                                text:
-                                    '${DateFormat('dd MMM yyyy').format(match.date)}\n',
-                                style: const TextStyle(
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.w300)),
-                            TextSpan(
-                                text: '${match.winner.nickname} (',
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold)),
-                            TextSpan(
-                                text: '+${match.winnerDelta}',
-                                style: const TextStyle(color: Colors.green)),
-                            const TextSpan(
-                                text: ')',
-                                style: TextStyle(fontWeight: FontWeight.bold)),
-                            const TextSpan(
-                                text: ' won against ',
-                                style: TextStyle(color: Colors.black)),
-                            TextSpan(
-                                text: '${match.loser.nickname} (',
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold)),
-                            TextSpan(
-                                text: '${match.loserDelta}',
-                                style: const TextStyle(color: Colors.red)),
-                            const TextSpan(
-                                text: ')\n',
-                                style: TextStyle(fontWeight: FontWeight.bold)),
-                          ],
+                  return Container(
+                    margin: const EdgeInsets.only(bottom: 10.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        RichText(
+                          textAlign: TextAlign.left,
+                          textWidthBasis: TextWidthBasis.parent,
+                          softWrap: true,
+                          text: TextSpan(
+                            style: const TextStyle(
+                                fontSize: 16.0, color: Colors.black),
+                            children: <TextSpan>[
+                              TextSpan(
+                                  text:
+                                      '${DateFormat('dd MMM yyyy').format(match.date)}\n',
+                                  style: const TextStyle(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.w300)),
+                              TextSpan(
+                                  text: '${match.winner.nickname} (',
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold)),
+                              TextSpan(
+                                  text: '+${match.winnerDelta}',
+                                  style: const TextStyle(color: Colors.green)),
+                              const TextSpan(
+                                  text: ')',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
+                              const TextSpan(
+                                  text: ' won against ',
+                                  style: TextStyle(color: Colors.black)),
+                              TextSpan(
+                                  text: '${match.loser.nickname} (',
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold)),
+                              TextSpan(
+                                  text: '${match.loserDelta}',
+                                  style: const TextStyle(color: Colors.red)),
+                              const TextSpan(
+                                  text: ')',
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   );
                 })
                 .toList()
