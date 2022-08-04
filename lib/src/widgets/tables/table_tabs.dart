@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../shared/constants.dart';
-import '../widgets/scoreboard.dart';
+import 'match_history.dart';
+import '../../shared/constants.dart';
+import 'scoreboard.dart';
 
 final GlobalKey<NavigatorState> _navKey = GlobalKey<NavigatorState>();
 
@@ -49,7 +50,7 @@ class TableTabsState extends State<TableTabs>
             controller: _tabController,
             children: [
               Scoreboard(),
-              Scoreboard(),
+              MatchHistory(),
             ],
           ),
         ),

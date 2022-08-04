@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'firebase_service.dart';
 
+int _maxResultsInScoreboard = 200;
+int _maxResultsInRecentMatches = 100;
+
 class Firestore {
   final FirebaseFirestore _database = FirebaseFirestore.instance;
   final FirebaseService _firebase = FirebaseService();
@@ -30,6 +33,15 @@ class Firestore {
     var uid = _firebase.getUidOrNull();
     final result = await _database.collection('players').doc(uid).get();
     return result.data();
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> getMatchHistory(String sport) {
+    return _database
+        .collection('matches')
+        .where('sport', isEqualTo: sport)
+        .orderBy('date', descending: true)
+        .limit(_maxResultsInRecentMatches)
+        .snapshots();
   }
 }
 

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:office_sports_android/src/widgets/settings.dart';
-import 'package:office_sports_android/src/models/player_model.dart';
-import 'package:office_sports_android/src/navigation/table_tabs.dart';
-import 'package:office_sports_android/src/widgets/profile_picture.dart';
+import '../widgets/settings/settings.dart';
+import '../models/player_model.dart';
+import '../widgets/tables/table_tabs.dart';
+import '../widgets/profile_picture.dart';
 import '../shared/constants.dart';
 
 class TableTennisPage extends StatelessWidget {

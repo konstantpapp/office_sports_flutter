@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../models/player_model.dart';
 import '../widgets/profile_picture.dart';
-import '../widgets/settings.dart';
+import '../widgets/settings/settings.dart';
 import '../shared/constants.dart';
 
 class NotificationsPage extends StatelessWidget {

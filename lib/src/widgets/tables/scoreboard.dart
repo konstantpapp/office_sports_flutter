@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import '../services/firestore_service.dart';
+import '../../services/firestore_service.dart';
 
 class Scoreboard extends StatefulWidget {
   @override

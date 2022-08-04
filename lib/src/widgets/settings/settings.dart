@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'settings/season_results.dart';
-import 'settings/preferences.dart';
-import 'settings/about.dart';
-import '../modals/profile_modal.dart';
-import 'settings/sign_out_dialog.dart';
-import '../shared/constants.dart';
-import '../models/settings_option.dart';
-import '../models/player_model.dart';
+import 'season_results.dart';
+import 'preferences.dart';
+import 'about.dart';
+import '../../modals/profile_modal.dart';
+import 'sign_out_dialog.dart';
+import '../../shared/constants.dart';
+import '../../models/settings_option.dart';
+import '../../models/player_model.dart';
 
 class Settings extends StatelessWidget {
   const Settings({super.key, required this.player});
