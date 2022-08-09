@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:office_sports_android/src/models/navigation_keys.dart';
 import 'match_history.dart';
 import '../../shared/constants.dart';
 import 'scoreboard.dart';
 
-final GlobalKey<NavigatorState> _navKey = GlobalKey<NavigatorState>();
-
 class TableTabs extends StatefulWidget {
-  const TableTabs({Key? key}) : super(key: key);
+  const TableTabs({Key? key, required this.sport}) : super(key: key);
+  final int sport;
 
   @override
   TableTabsState createState() => TableTabsState();
@@ -44,13 +44,13 @@ class TableTabsState extends State<TableTabs>
         ],
       ),
       body: Navigator(
-        key: _navKey,
+        key: widget.sport == 0 ? NKeys.nKey1 : NKeys.nKey2,
         onGenerateRoute: (_) => MaterialPageRoute(
           builder: (_) => TabBarView(
             controller: _tabController,
             children: [
-              Scoreboard(),
-              MatchHistory(),
+              Scoreboard(sport: widget.sport),
+              MatchHistory(sport: widget.sport),
             ],
           ),
         ),

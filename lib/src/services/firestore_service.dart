@@ -35,7 +35,7 @@ class Firestore {
     return result.data();
   }
 
-  Stream<QuerySnapshot<Map<String, dynamic>>> getMatchHistory(String sport) {
+  Stream<QuerySnapshot<Map<String, dynamic>>> getMatchHistory(int sport) {
     return _database
         .collection('matches')
         .where('sport', isEqualTo: sport)

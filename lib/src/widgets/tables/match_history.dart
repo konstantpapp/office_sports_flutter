@@ -5,18 +5,19 @@ import '../../models/match_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class MatchHistory extends StatefulWidget {
+  const MatchHistory({required this.sport});
+  final int sport;
   @override
   MatchHistoryState createState() => MatchHistoryState();
 }
 
 class MatchHistoryState extends State<MatchHistory> {
-  final Stream<QuerySnapshot> _matchHistory =
-      firestore.getMatchHistory('tabletennis');
-
   @override
   Widget build(BuildContext context) {
+    final Stream<QuerySnapshot> matchHistory =
+        firestore.getMatchHistory(widget.sport);
     return StreamBuilder<QuerySnapshot>(
-      stream: _matchHistory,
+      stream: matchHistory,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) {
           return const Text('Something went wrong');

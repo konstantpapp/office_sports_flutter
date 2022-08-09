@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../../services/firestore_service.dart';
 
 class Scoreboard extends StatefulWidget {
+  Scoreboard({required this.sport});
+  int sport;
   @override
   _ScoreboardState createState() => _ScoreboardState();
 }

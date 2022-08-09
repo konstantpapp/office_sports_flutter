@@ -2,7 +2,7 @@ import 'package:office_sports_android/src/models/player_model.dart';
 
 class Match {
   late DateTime date;
-  late String sport;
+  late int sport;
   late Player winner;
   late Player loser;
   late int winnerDelta;
