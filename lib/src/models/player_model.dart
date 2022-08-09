@@ -24,8 +24,8 @@ class Player {
   Player.fromJson(Map<String, dynamic> parsedJson)
       : nickname = parsedJson['nickname'],
         emoji = parsedJson['emoji'],
-        foosballStats = parsedJson['foosballStats'],
-        tableTennisStats = parsedJson['tableTennisStats'];
+        foosballStats = Stats.fromJson(parsedJson['foosballStats']),
+        tableTennisStats = Stats.fromJson(parsedJson['tableTennisStats']);
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{

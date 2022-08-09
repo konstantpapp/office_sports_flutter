@@ -1,4 +1,4 @@
-package com.example.office_sports_android
+package com.tietoevry.officesportsflutter
 
 import io.flutter.embedding.android.FlutterActivity
 

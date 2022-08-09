@@ -1,42 +1,49 @@
 {
   "project_info": {
-    "project_number": "682110560483",
-    "project_id": "office-sports",
-    "storage_bucket": "office-sports.appspot.com"
+    "project_number": "826670634020",
+    "project_id": "officesports-5d7ac",
+    "storage_bucket": "officesports-5d7ac.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:682110560483:android:238f74828b0f096f3ebdd6",
+        "mobilesdk_app_id": "1:826670634020:android:0f02f68b122a7c1d0534b1",
         "android_client_info": {
-          "package_name": "com.example.office_sports_android"
+          "package_name": "com.tietoevry.officesportsflutter"
         }
       },
       "oauth_client": [
         {
-          "client_id": "682110560483-kjtppqsfos0boblv4c97436krlr0gdt8.apps.googleusercontent.com",
+          "client_id": "826670634020-urd5eh44h7scftt8al2b9iquu07cglk6.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.office_sports_android",
+            "package_name": "com.tietoevry.officesportsflutter",
             "certificate_hash": "aeec78375f49e63adbb8458464943e9507938501"
           }
         },
         {
-          "client_id": "682110560483-jkebdkmrjbi75k0tslhkn5iap8me002k.apps.googleusercontent.com",
+          "client_id": "826670634020-r3b71c0b4im86ts7fd5paq1l4u7e1nnr.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBnOpWyIhQbEkEEAVICCuoCIR6NZvPjpYU"
+          "current_key": "AIzaSyCCmNGbfBdHNI-0uZDnjFyUGzhpokG7JsE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "682110560483-jkebdkmrjbi75k0tslhkn5iap8me002k.apps.googleusercontent.com",
+              "client_id": "826670634020-r3b71c0b4im86ts7fd5paq1l4u7e1nnr.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "826670634020-dko1i6vqr7nf4c6hi135aa02bqk0o6k4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.tietoevry.officesports"
+              }
             }
           ]
         }

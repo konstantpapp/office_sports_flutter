@@ -24,15 +24,19 @@ class Firestore {
     _database
         .collection('players')
         .doc(uid)
-        .set({'nickname': nickname, 'emoji': emoji})
+        .set({'nickname': nickname, 'emoji': emoji}, SetOptions(merge: true))
         .then((value) => print('User added'))
         .catchError((error) => print('Failed to add user: $error'));
   }
 
   Future<Map<String, dynamic>?> getPlayerProfile() async {
     var uid = _firebase.getUidOrNull();
-    final result = await _database.collection('players').doc(uid).get();
-    return result.data();
+    try {
+      final result = await _database.collection('players').doc(uid).get();
+      return result.data();
+    } catch (err) {
+      return null;
+    }
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getMatchHistory(int sport) {
