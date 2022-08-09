@@ -5,8 +5,8 @@ class Match {
   late String sport;
   late Player winner;
   late Player loser;
-  late int loserDelta;
   late int winnerDelta;
+  late int loserDelta;
 
   Match.fromJson(Map<String, dynamic> parsedJson)
       : date = DateTime.parse(parsedJson['date'].toDate().toString()),
@@ -15,4 +15,15 @@ class Match {
         loser = Player.fromJson(parsedJson['loser']),
         loserDelta = parsedJson['loserDelta'],
         winnerDelta = parsedJson['winnerDelta'];
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      "date": date,
+      "sport": sport,
+      "winner": winner,
+      "loser": loser,
+      "winnerDelta": winnerDelta,
+      "loserDelta": loserDelta
+    };
+  }
 }
