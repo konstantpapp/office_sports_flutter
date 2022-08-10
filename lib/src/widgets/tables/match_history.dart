@@ -48,7 +48,7 @@ class MatchHistoryState extends State<MatchHistory> {
                             children: <TextSpan>[
                               TextSpan(
                                   text:
-                                      '${DateFormat('dd MMMM yyyy @ hh:mm').format(match.date)}\n',
+                                      '${DateFormat('dd MMMM yyyy @ H:m').format(match.date)}\n',
                                   style: const TextStyle(
                                       fontSize: 16.0,
                                       fontWeight: FontWeight.w300)),
