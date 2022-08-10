@@ -42,7 +42,8 @@ class CameraPageState extends State<CameraPage> {
   void readQr() async {
     if (result != null) {
       controller!.pauseCamera();
-      final CodePayload payload = jsonDecode(result!.code!);
+      final CodePayload payload =
+          CodePayload.fromJson(jsonDecode(result!.code!));
       final String winnerId = firebase.getUidOrNull()!;
       final MatchRegistration match =
           MatchRegistration(payload.sport, winnerId, payload.userId);
