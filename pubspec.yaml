@@ -36,6 +36,7 @@ dependencies:
   floating_bottom_navigation_bar: ^1.5.2
   qr_flutter: ^4.0.0
   qr_code_scanner: ^1.0.0
+  http: ^0.13.5
 
   flutter:
     sdk: flutter

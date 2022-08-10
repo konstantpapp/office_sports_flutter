@@ -1,8 +1,14 @@
+import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'firebase_service.dart';
+import '../models/match_registration_model.dart';
+import 'package:http/http.dart' as http;
 
 int _maxResultsInScoreboard = 200;
 int _maxResultsInRecentMatches = 100;
+String _fbCloudFuncBaseUrl =
+    "https://us-central1-officesports-5d7ac.cloudfunctions.net";
+String _fbCloudFuncRegisterMatchUrl = "/winMatch";
 
 class Firestore {
   final FirebaseFirestore _database = FirebaseFirestore.instance;
@@ -56,6 +62,27 @@ class Firestore {
         .orderBy(fieldPath, descending: true)
         .limit(_maxResultsInScoreboard)
         .snapshots();
+  }
+
+  Future<http.Response?>? registerMatch(MatchRegistration registration) async {
+    if (registration.winnerId == registration.loserId) {
+      print('Gotcha');
+      return null;
+    }
+
+    final response = await http.post(
+      Uri.parse("$_fbCloudFuncBaseUrl/$_fbCloudFuncRegisterMatchUrl"),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8'
+      },
+      body: jsonEncode(registration),
+    );
+
+    if (response.statusCode == 201 || response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      throw Exception('Failed to register match');
+    }
   }
 }
 

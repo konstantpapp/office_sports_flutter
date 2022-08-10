@@ -1,7 +1,11 @@
+import '../models/code_payload_model.dart';
+import 'dart:convert';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:flutter/material.dart';
 import '../models/player_model.dart';
 import '../shared/constants.dart';
+import '../services/firebase_service.dart';
+import '../models/match_registration_model.dart';
 
 class CameraPage extends StatefulWidget {
   const CameraPage({super.key, required this.player});
@@ -38,7 +42,10 @@ class CameraPageState extends State<CameraPage> {
   void readQr() async {
     if (result != null) {
       controller!.pauseCamera();
-      print(result!.code);
+      final CodePayload payload = jsonDecode(result!.code!);
+      final String winnerId = firebase.getUidOrNull()!;
+      final MatchRegistration match =
+          MatchRegistration(payload.sport, winnerId, payload.userId);
       controller!.dispose();
     }
   }

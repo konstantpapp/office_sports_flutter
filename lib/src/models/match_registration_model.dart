@@ -1,5 +1,7 @@
 class MatchRegistration {
-  late int sport;
-  late String winnerId;
-  late String loserId;
+  final int sport;
+  final String winnerId;
+  final String loserId;
+
+  MatchRegistration(this.sport, this.winnerId, this.loserId);
 }
