@@ -23,7 +23,7 @@ class MatchHistoryState extends State<MatchHistory> {
           return const Text('Something went wrong');
         }
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Text("Loading");
+          return const Center(child: CircularProgressIndicator());
         }
         return Container(
           padding: const EdgeInsets.all(10),
@@ -53,7 +53,7 @@ class MatchHistoryState extends State<MatchHistory> {
                             children: <TextSpan>[
                               TextSpan(
                                   text:
-                                      '${DateFormat('dd MMM yyyy').format(match.date)}\n',
+                                      '${DateFormat('dd MMMM yyyy @ hh:mm').format(match.date)}\n',
                                   style: const TextStyle(
                                       fontSize: 16.0,
                                       fontWeight: FontWeight.w300)),
@@ -79,7 +79,7 @@ class MatchHistoryState extends State<MatchHistory> {
                                   text: '${match.loserDelta}',
                                   style: const TextStyle(color: Colors.red)),
                               const TextSpan(
-                                  text: ')',
+                                  text: ')\n',
                                   style:
                                       TextStyle(fontWeight: FontWeight.bold)),
                             ],

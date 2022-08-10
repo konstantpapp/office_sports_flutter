@@ -214,7 +214,10 @@ class ProfileModalState extends State<ProfileModal> with ValidationMixin {
               context,
               MaterialPageRoute(
                 builder: (context) => HomePage(
-                  profileData: {'nickname': nickname, 'emoji': emoji},
+                  profileData: {
+                    'nickname': nickname,
+                    'emoji': emoji,
+                  },
                 ),
               ),
               (route) => false);

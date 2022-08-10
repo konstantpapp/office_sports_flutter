@@ -8,10 +8,10 @@ class Player {
 
   Player(
     this.nickname,
-    this.emoji, [
+    this.emoji,
     this.foosballStats,
     this.tableTennisStats,
-  ]);
+  );
 
   Stats? statsForSport(int sport) {
     return sport == 0 ? foosballStats : tableTennisStats;
