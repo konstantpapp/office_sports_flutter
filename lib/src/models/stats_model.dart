@@ -1,8 +1,8 @@
 class Stats {
-  late int sport;
-  late int score;
-  late int matchesPlayed;
-  late int? seasonWins;
+  final int sport;
+  final int score;
+  final int matchesPlayed;
+  final int? seasonWins;
 
   Stats(this.sport, this.score, this.matchesPlayed, this.seasonWins);
 

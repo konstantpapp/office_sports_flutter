@@ -47,6 +47,13 @@ class Firestore {
         .limit(_maxResultsInRecentMatches)
         .snapshots();
   }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> getScoreboard(int sport) {
+    return _database
+        .collection('players')
+        .limit(_maxResultsInScoreboard)
+        .snapshots();
+  }
 }
 
 Firestore firestore = Firestore();

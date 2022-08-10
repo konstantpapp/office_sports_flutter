@@ -1,50 +1,55 @@
+import 'package:collection/collection.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../../services/firestore_service.dart';
+import '../../models/player_model.dart';
 
 class Scoreboard extends StatefulWidget {
-  Scoreboard({required this.sport});
-  int sport;
+  const Scoreboard({required this.sport});
+  final int sport;
   @override
-  _ScoreboardState createState() => _ScoreboardState();
+  ScoreboardState createState() => ScoreboardState();
 }
 
-class _ScoreboardState extends State<Scoreboard> {
-  final Stream<QuerySnapshot> _playersStream = firestore.playersStream;
-
+class ScoreboardState extends State<Scoreboard> {
   @override
   Widget build(BuildContext context) {
+    final Stream<QuerySnapshot> scoreboard =
+        firestore.getScoreboard(widget.sport);
     return StreamBuilder<QuerySnapshot>(
-      stream: _playersStream,
+      stream: scoreboard,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) {
           return const Text('Something went wrong');
         }
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Text("Loading");
+          return const Center(child: CircularProgressIndicator());
         }
-
         return ListView(
             children: snapshot.data!.docs
-                .map((DocumentSnapshot document) {
+                .mapIndexed((index, DocumentSnapshot document) {
                   Map<String, dynamic> data =
                       document.data()! as Map<String, dynamic>;
+                  Player player = Player.fromJson(data);
+                  final stats = widget.sport == 0
+                      ? player.foosballStats
+                      : player.tableTennisStats;
                   return Card(
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         ListTile(
                           leading: Text(
-                            data['emoji'],
+                            player.emoji,
                             style: const TextStyle(fontSize: 40),
                           ),
                           title: Text(
-                            data['nickname'],
+                            player.nickname,
                             style: const TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
-                          subtitle: const Text('1000 points'),
-                          trailing: const Text('1st'),
+                          subtitle: Text('${stats?.score} points'),
+                          trailing: Text(index.toString()),
                         ),
                       ],
                     ),

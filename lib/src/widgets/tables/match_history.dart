@@ -33,11 +33,6 @@ class MatchHistoryState extends State<MatchHistory> {
                   Map<String, dynamic> data =
                       document.data()! as Map<String, dynamic>;
                   Match match = Match.fromJson(data);
-                  // return ListTile(
-                  //   leading: Text(DateFormat('dd MMM yyyy').format(match.date)),
-                  //   subtitle: Text(match.winner.nickname),
-                  //   title: Text(match.loser.nickname),
-                  // );
                   return Container(
                     margin: const EdgeInsets.only(bottom: 10.0),
                     child: Column(
