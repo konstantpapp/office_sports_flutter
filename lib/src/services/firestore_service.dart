@@ -49,8 +49,11 @@ class Firestore {
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getScoreboard(int sport) {
+    final String fieldPath =
+        sport == 0 ? "foosballStats.score" : "tableTennisStats.score";
     return _database
         .collection('players')
+        .orderBy(fieldPath, descending: true)
         .limit(_maxResultsInScoreboard)
         .snapshots();
   }

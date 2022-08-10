@@ -28,6 +28,7 @@ class ScoreboardState extends State<Scoreboard> {
         return ListView(
             children: snapshot.data!.docs
                 .mapIndexed((index, DocumentSnapshot document) {
+                  final int lastIndex = snapshot.data!.docs.length;
                   Map<String, dynamic> data =
                       document.data()! as Map<String, dynamic>;
                   Player player = Player.fromJson(data);
@@ -49,7 +50,10 @@ class ScoreboardState extends State<Scoreboard> {
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
                           subtitle: Text('${stats?.score} points'),
-                          trailing: Text(index.toString()),
+                          trailing: Text(
+                            getPosition(index, lastIndex),
+                            style: const TextStyle(fontSize: 18.0),
+                          ),
                         ),
                       ],
                     ),
@@ -59,5 +63,21 @@ class ScoreboardState extends State<Scoreboard> {
                 .cast());
       },
     );
+  }
+
+  String getPosition(int index, int lastIndex) {
+    if (index + 1 == lastIndex) {
+      return '💩';
+    }
+    switch (index) {
+      case 0:
+        return '🥇';
+      case 1:
+        return '🥈';
+      case 2:
+        return '🥉';
+      default:
+        return '${index + 1}th';
+    }
   }
 }
