@@ -66,7 +66,6 @@ class Firestore {
 
   Future<http.Response?>? registerMatch(MatchRegistration registration) async {
     if (registration.winnerId == registration.loserId) {
-      print('Gotcha');
       return null;
     }
 
@@ -75,11 +74,11 @@ class Firestore {
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8'
       },
-      body: jsonEncode(registration),
+      body: jsonEncode(registration.toMap()),
     );
 
     if (response.statusCode == 201 || response.statusCode == 200) {
-      return json.decode(response.body);
+      return null;
     } else {
       throw Exception('Failed to register match');
     }

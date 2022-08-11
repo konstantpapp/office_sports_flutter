@@ -29,7 +29,7 @@ class CameraPageState extends State<CameraPage> {
   void _onQRViewCreated(QRViewController controller) {
     setState(() => this.controller = controller);
     controller.scannedDataStream.listen((scanData) {
-      setState(() => result = scanData);
+      readQr(scanData);
     });
   }
 
@@ -39,14 +39,15 @@ class CameraPageState extends State<CameraPage> {
     controller!.pauseCamera();
   }
 
-  void readQr() async {
+  void readQr(Barcode? result) async {
     if (result != null) {
       controller!.pauseCamera();
-      final CodePayload payload = jsonDecode(result!.code!);
+      final CodePayload payload =
+          CodePayload.fromJson(jsonDecode(result.code!));
       final String winnerId = firebase.getUidOrNull()!;
       final MatchRegistration match =
           MatchRegistration(payload.sport, winnerId, payload.userId);
-      _showMatchDialog(match);
+      _showMatchDialog(match, payload);
       controller!.dispose();
     }
   }
@@ -57,7 +58,8 @@ class CameraPageState extends State<CameraPage> {
     super.dispose();
   }
 
-  Future<void> _showMatchDialog(MatchRegistration registration) async {
+  Future<void> _showMatchDialog(
+      MatchRegistration registration, CodePayload payload) async {
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
@@ -65,7 +67,7 @@ class CameraPageState extends State<CameraPage> {
           title: const Text('Register match'),
           content: SingleChildScrollView(
             child: Text(
-              'Register a win in ${registration.sport} against ${registration.loserId}?',
+              'Register a win in ${payload.sport == 0 ? 'foosball ⚽️' : 'table tennis 🏓'} against ${payload.nickname}?',
               textAlign: TextAlign.center,
             ),
           ),
@@ -74,8 +76,6 @@ class CameraPageState extends State<CameraPage> {
               onPressed: () {
                 firestore.registerMatch(registration);
                 Navigator.of(context).pop();
-                Navigator.pushNamed(context,
-                    registration.sport == 0 ? '/foosball' : '/tabletennis');
               },
               child: const Text('Register'),
             )
@@ -87,7 +87,6 @@ class CameraPageState extends State<CameraPage> {
 
   @override
   Widget build(BuildContext context) {
-    readQr();
     return Scaffold(
       backgroundColor: Constants.backgroundColor,
       body: Stack(
