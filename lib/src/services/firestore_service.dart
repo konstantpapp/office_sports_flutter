@@ -78,7 +78,7 @@ class Firestore {
     );
 
     if (response.statusCode == 201 || response.statusCode == 200) {
-      return null;
+      return response;
     } else {
       throw Exception('Failed to register match');
     }

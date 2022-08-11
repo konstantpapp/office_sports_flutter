@@ -15,10 +15,13 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   profileData = await firestore.getPlayerProfile();
-  runApp(MyApp());
+  runApp(MyApp(profileData: profileData));
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({this.profileData});
+  final Map<String, dynamic>? profileData;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

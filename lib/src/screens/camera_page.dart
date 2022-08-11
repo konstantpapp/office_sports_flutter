@@ -1,3 +1,5 @@
+import 'package:office_sports_android/src/screens/home_page.dart';
+
 import '../models/code_payload_model.dart';
 import 'dart:convert';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -74,8 +76,16 @@ class CameraPageState extends State<CameraPage> {
           actions: [
             TextButton(
               onPressed: () {
-                firestore.registerMatch(registration);
+                final response = firestore.registerMatch(registration);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  response != null ? snackBarSuccess : snackBarError,
+                );
                 Navigator.of(context).pop();
+                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+                  builder: (context) {
+                    return HomePage(profileData: player.toMap());
+                  },
+                ), (route) => false);
               },
               child: const Text('Register'),
             )
@@ -119,4 +129,26 @@ class CameraPageState extends State<CameraPage> {
       ),
     );
   }
+
+  final snackBarSuccess = SnackBar(
+    content: const Text('Success! Your win has been registered.'),
+    backgroundColor: Colors.green,
+    action: SnackBarAction(
+      label: 'Undo',
+      onPressed: () {
+        // Some code to undo the change.
+      },
+    ),
+  );
+
+  final snackBarError = SnackBar(
+    content: const Text('Error! Your win has not been registered.'),
+    backgroundColor: Colors.red,
+    action: SnackBarAction(
+      label: 'Undo',
+      onPressed: () {
+        // Some code to undo the change.
+      },
+    ),
+  );
 }
