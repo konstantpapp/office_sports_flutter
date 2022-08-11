@@ -22,10 +22,6 @@ class QRCode extends StatelessWidget {
         version: QrVersions.auto,
         gapless: false,
         size: 200,
-        embeddedImage: AssetImage('assets/${sport}_emoji.png'),
-        embeddedImageStyle: QrEmbeddedImageStyle(
-          size: const Size(40, 40),
-        ),
       ),
     );
   }

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../models/player_model.dart';
 import '../shared/constants.dart';
 import '../services/firebase_service.dart';
+import '../services/firestore_service.dart';
 import '../models/match_registration_model.dart';
 
 class CameraPage extends StatefulWidget {
@@ -38,7 +39,6 @@ class CameraPageState extends State<CameraPage> {
     controller!.pauseCamera();
   }
 
-  // TODO: Register match result on db
   void readQr() async {
     if (result != null) {
       controller!.pauseCamera();
@@ -46,6 +46,7 @@ class CameraPageState extends State<CameraPage> {
       final String winnerId = firebase.getUidOrNull()!;
       final MatchRegistration match =
           MatchRegistration(payload.sport, winnerId, payload.userId);
+      _showMatchDialog(match);
       controller!.dispose();
     }
   }
@@ -54,6 +55,34 @@ class CameraPageState extends State<CameraPage> {
   void dispose() {
     controller?.dispose();
     super.dispose();
+  }
+
+  Future<void> _showMatchDialog(MatchRegistration registration) async {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Register match'),
+          content: SingleChildScrollView(
+            child: Text(
+              'Register a win in ${registration.sport} against ${registration.loserId}?',
+              textAlign: TextAlign.center,
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                firestore.registerMatch(registration);
+                Navigator.of(context).pop();
+                Navigator.pushNamed(context,
+                    registration.sport == 0 ? '/foosball' : '/tabletennis');
+              },
+              child: const Text('Register'),
+            )
+          ],
+        );
+      },
+    );
   }
 
   @override
