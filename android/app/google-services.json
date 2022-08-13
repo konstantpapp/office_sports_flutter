@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "826670634020-441rvgqit74n7kiql0otdt64kfihf3ji.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tietoevry.officesportsflutter",
+            "certificate_hash": "fff1a18559023d6d58342b7565d748323053cc2f"
+          }
+        },
+        {
           "client_id": "826670634020-urd5eh44h7scftt8al2b9iquu07cglk6.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
