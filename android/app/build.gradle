@@ -53,14 +53,23 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
-
-    buildTypes {
-        release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
+    
+    signingConfigs {
+       release {
+           keyAlias System.getenv('KEY_ALIAS')
+           keyPassword System.getenv('STORE_PASSWORD')
+           storeFile file(System.getenv('STORE_FILE'))
+           storePassword System.getenv('STORE_PASSWORD')
+       }
+   }
+   buildTypes {
+       release {
+           signingConfig signingConfigs.release
+       }
+        debug {
             signingConfig signingConfigs.debug
         }
-    }
+   }
 }
 
 flutter {
@@ -72,4 +81,5 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:30.3.0')
     implementation 'com.google.firebase:firebase-auth'
     implementation 'com.google.android.gms:play-services-auth:20.2.0'
+    implementation 'com.android.support:multidex:1.0.3'
 }

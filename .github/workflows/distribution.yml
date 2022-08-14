@@ -1,0 +1,45 @@
+name: Distribution
+on:
+  push:
+    branches:
+      - main
+
+defaults:
+  run:
+    working-directory: "./android"
+env:
+ FB_CLI_TOKEN: ${{ secrets.FB_CLI_TOKEN }}
+ FB_APP_ID: ${{ secrets.FB_APP_ID }}
+ STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
+ STORE_FILE: ${{ secrets.STORE_FILE }}
+ KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+
+jobs:
+  distribute:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: setup keystore
+        run: |
+          echo "${{ secrets.RELEASE_KEYSTORE }}" > release.keystore.asc
+          gpg -d --passphrase "${{ secrets.RELEASE_KEYSTORE_PASSWORD }}" --batch release.keystore.asc > release.keystore
+
+      - name: setup flutter
+        uses: subosito/flutter-action@v2
+  
+      - name: pub get
+        run: flutter pub get
+      
+      - name: setup ruby
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: '2.7'
+
+      - name: Install bundler
+        run: gem install bundler:2.3.11
+      
+      - name: setup fastlane
+        run: bundle install
+  
+      - name: run fastlane
+        run: bundle exec fastlane deploy

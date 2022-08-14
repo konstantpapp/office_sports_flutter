@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "826670634020-9tioquin235htmk7o40t0hpuc9j5cce6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tietoevry.officesportsflutter",
+            "certificate_hash": "fe9a83e60599a53248cbafc7738c84f443032bfe"
+          }
+        },
+        {
           "client_id": "826670634020-urd5eh44h7scftt8al2b9iquu07cglk6.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
