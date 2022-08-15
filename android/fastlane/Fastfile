@@ -1,0 +1,28 @@
+default_platform(:android)
+
+platform :android do
+ desc "Deploy to Firebase app distribution"
+ lane :deploy do
+  build_android_app(
+    project_dir: "../android",
+    task: "assemble",
+    build_type: "Release",
+  )
+  begin
+  firebase_app_distribution(
+   groups: "android",
+  #  release_notes: "Fixing bug in features",
+   apk_path: "../build/app/outputs/flutter-apk/app-release.apk",
+   firebase_cli_token: ENV["FB_CLI_TOKEN"],
+   app: ENV["FB_APP_ID"],
+  )
+  end
+ end
+ lane :increment_version do
+  latest_release = firebase_app_distribution_get_latest_release(
+    app: ENV["FB_APP_ID"],
+  )
+  print(latest_release)
+  increment_version_code({ version_code: latest_release[:buildVersion].to_i + 1 })
+ end
+end
