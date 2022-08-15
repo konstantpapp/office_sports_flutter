@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../mixins/validation_mixin.dart';
 import '../shared/constants.dart';
+import '../shared/emojis.dart';
 import '../models/player_model.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import '../services/firestore_service.dart';
@@ -11,13 +12,11 @@ class ProfileModal extends StatefulWidget {
   final Player? player;
   @override
   createState() {
-    return ProfileModalState(player);
+    return ProfileModalState();
   }
 }
 
 class ProfileModalState extends State<ProfileModal> with ValidationMixin {
-  ProfileModalState([this.player]);
-  final Player? player;
   final formKey = GlobalKey<FormState>();
 
   late String nickname;
@@ -26,15 +25,15 @@ class ProfileModalState extends State<ProfileModal> with ValidationMixin {
 
   @override
   void initState() {
-    isExistingPlayer = player != null;
+    isExistingPlayer = widget.player != null;
     super.initState();
     if (isExistingPlayer) {
-      nickname = player!.nickname;
-      emoji = player!.emoji;
+      nickname = widget.player!.nickname;
+      emoji = widget.player!.emoji;
       return;
     }
     nickname = '';
-    emoji = '🙂';
+    emoji = Emojis().getRandom();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       showModal(context);
     });
@@ -187,7 +186,7 @@ class ProfileModalState extends State<ProfileModal> with ValidationMixin {
 
   Widget nicknameField() {
     return TextFormField(
-      initialValue: player != null ? player!.nickname : '',
+      initialValue: widget.player != null ? widget.player!.nickname : '',
       style: const TextStyle(color: Constants.primaryTextColor),
       decoration: const InputDecoration(
           fillColor: Constants.secondaryColor,
