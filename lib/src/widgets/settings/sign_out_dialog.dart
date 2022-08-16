@@ -14,8 +14,9 @@ class SignOutDialog extends StatelessWidget {
         ),
         TextButton(
           onPressed: () async {
+            final navigator = Navigator.of(context);
             await firebase.signOutFromGoogle();
-            Navigator.pushReplacementNamed(context, '/');
+            navigator.pushNamedAndRemoveUntil('/', (route) => false);
           },
           child: const Text('Yes'),
         ),
