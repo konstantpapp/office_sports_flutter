@@ -27,6 +27,7 @@ class _GoogleSignInState extends State<GoogleSignIn> {
                 FirebaseService service = FirebaseService();
                 try {
                   await service.signInwithGoogle();
+                  if (!mounted) return;
                   Navigator.pushNamedAndRemoveUntil(
                       context, '/home', (route) => false);
                 } catch (e) {
