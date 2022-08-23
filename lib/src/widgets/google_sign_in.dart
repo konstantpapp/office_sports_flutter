@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import '../services/firebase_service.dart';
+import '../services/firestore_service.dart';
+import '../screens/home_page.dart';
 import 'package:flutter/material.dart';
 import '../shared/constants.dart';
 
@@ -28,8 +30,23 @@ class _GoogleSignInState extends State<GoogleSignIn> {
                 try {
                   await service.signInwithGoogle();
                   if (!mounted) return;
-                  Navigator.pushNamedAndRemoveUntil(
-                      context, '/home', (route) => false);
+                  final profileData = await firestore.getPlayerProfile();
+                  if (profileData == null) {
+                    Navigator.pushNamedAndRemoveUntil(
+                      context,
+                      '/home',
+                      (route) => false,
+                    );
+                  } else {
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HomePage(
+                            profileData: profileData,
+                          ),
+                        ),
+                        (route) => false);
+                  }
                 } catch (e) {
                   if (e is FirebaseAuthException) {
                     showMessage(e.message!);

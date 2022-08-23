@@ -80,12 +80,14 @@ class CameraPageState extends State<CameraPage> {
                 ScaffoldMessenger.of(context).showSnackBar(
                   response != null ? snackBarSuccess : snackBarError,
                 );
-                Navigator.of(context).pop();
-                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
-                  builder: (context) {
-                    return HomePage(profileData: player.toMap());
-                  },
-                ), (route) => false);
+                Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => HomePage(
+                        profileData: player.toMap(),
+                      ),
+                    ),
+                    (route) => false);
               },
               child: const Text('Register'),
             )
