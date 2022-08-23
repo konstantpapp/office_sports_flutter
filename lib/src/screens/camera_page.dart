@@ -78,7 +78,9 @@ class CameraPageState extends State<CameraPage> {
               onPressed: () {
                 final response = firestore.registerMatch(registration);
                 ScaffoldMessenger.of(context).showSnackBar(
-                  response != null ? snackBarSuccess : snackBarError,
+                  response != null
+                      ? snackBarSuccess(context)
+                      : snackBarError(context),
                 );
                 Navigator.pushAndRemoveUntil(
                     context,
@@ -132,25 +134,29 @@ class CameraPageState extends State<CameraPage> {
     );
   }
 
-  final snackBarSuccess = SnackBar(
-    content: const Text('Success! Your win has been registered.'),
-    backgroundColor: Colors.green,
-    action: SnackBarAction(
-      label: 'Undo',
-      onPressed: () {
-        // Some code to undo the change.
-      },
-    ),
-  );
+  SnackBar snackBarSuccess(BuildContext context) {
+    return SnackBar(
+      content: const Text('Success! Your win has been registered.'),
+      backgroundColor: Colors.green,
+      action: SnackBarAction(
+        label: 'Undo',
+        onPressed: () {
+          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+        },
+      ),
+    );
+  }
 
-  final snackBarError = SnackBar(
-    content: const Text('Error! Your win has not been registered.'),
-    backgroundColor: Colors.red,
-    action: SnackBarAction(
-      label: 'Undo',
-      onPressed: () {
-        // Some code to undo the change.
-      },
-    ),
-  );
+  SnackBar snackBarError(BuildContext context) {
+    return SnackBar(
+      content: const Text('Error! Your win has not been registered.'),
+      backgroundColor: Colors.red,
+      action: SnackBarAction(
+        label: 'Undo',
+        onPressed: () {
+          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+        },
+      ),
+    );
+  }
 }
