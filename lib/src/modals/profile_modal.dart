@@ -3,8 +3,10 @@ import '../mixins/validation_mixin.dart';
 import '../shared/constants.dart';
 import '../shared/emojis.dart';
 import '../models/player_model.dart';
+import '../models/team_model.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import '../services/firestore_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../screens/home_page.dart';
 
 class ProfileModal extends StatefulWidget {
@@ -21,6 +23,8 @@ class ProfileModalState extends State<ProfileModal> with ValidationMixin {
 
   late String nickname;
   late String emoji;
+  late String teamName;
+  late Team chosenTeam;
   late bool isExistingPlayer;
 
   @override
@@ -30,8 +34,10 @@ class ProfileModalState extends State<ProfileModal> with ValidationMixin {
     if (isExistingPlayer) {
       nickname = widget.player!.nickname;
       emoji = widget.player!.emoji;
+      teamName = widget.player!.team!.name;
       return;
     }
+    teamName = '';
     nickname = '';
     emoji = Emojis().getRandom();
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -173,6 +179,8 @@ class ProfileModalState extends State<ProfileModal> with ValidationMixin {
                   ),
                   Container(margin: const EdgeInsets.only(top: 20.0)),
                   SizedBox(width: size.width * 0.8, child: nicknameField()),
+                  Container(margin: const EdgeInsets.only(top: 20.0)),
+                  SizedBox(width: size.width * 0.6, child: teamField(context)),
                   Container(margin: const EdgeInsets.only(top: 10.0)),
                   SizedBox(width: size.width * 0.8, child: submitButton()),
                 ],
@@ -199,6 +207,51 @@ class ProfileModalState extends State<ProfileModal> with ValidationMixin {
     );
   }
 
+  Widget teamField(BuildContext context) {
+    final Stream<QuerySnapshot> teams = firestore.getTeams();
+    return StreamBuilder<QuerySnapshot>(
+      stream: teams,
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        return DropdownButton<String>(
+          value: teamName,
+          icon: const Icon(
+            Icons.arrow_downward,
+            color: Constants.secondaryColor,
+          ),
+          elevation: 16,
+          style: const TextStyle(
+            color: Color.fromARGB(255, 31, 28, 85),
+            fontWeight: FontWeight.bold,
+          ),
+          underline: Container(
+            height: 2,
+            color: Colors.blueAccent,
+          ),
+          onChanged: (String? newValue) {
+            setState(() {
+              teamName = newValue!;
+            });
+          },
+          items: snapshot.data!.docs
+              .map<DropdownMenuItem<String>>((DocumentSnapshot document) {
+            Map<String, dynamic> data =
+                document.data()! as Map<String, dynamic>;
+            Team team = Team(document.id, data['name']);
+            return DropdownMenuItem<String>(
+              value: team.name,
+              child: Text(team.name),
+              onTap: () {
+                setState(() {
+                  chosenTeam = team;
+                });
+              },
+            );
+          }).toList(),
+        );
+      },
+    );
+  }
+
   Widget submitButton() {
     return ElevatedButton(
       style: ButtonStyle(
@@ -208,7 +261,8 @@ class ProfileModalState extends State<ProfileModal> with ValidationMixin {
         if (formKey.currentState!.validate()) {
           formKey.currentState!.save();
           formKey.currentState!.reset();
-          firestore.createOrUpdatePlayerProfile(nickname, emoji);
+          firestore.createOrUpdatePlayerProfile(
+              nickname, emoji, chosenTeam.toMap());
           Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
@@ -216,6 +270,7 @@ class ProfileModalState extends State<ProfileModal> with ValidationMixin {
                   profileData: {
                     'nickname': nickname,
                     'emoji': emoji,
+                    'team': chosenTeam.toMap(),
                   },
                 ),
               ),

@@ -1,6 +1,8 @@
 class Team {
-  late String id;
-  late String name;
+  String id;
+  String name;
+
+  Team(this.id, this.name);
 
   Team.fromJson(Map<String, dynamic> parsedJson)
       : id = parsedJson['id'],

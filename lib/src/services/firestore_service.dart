@@ -23,14 +23,16 @@ class Firestore {
   Stream<QuerySnapshot> get _seasonsStream =>
       _database.collection('seasons').snapshots();
 
-  void createOrUpdatePlayerProfile(String nickname, String emoji) {
+  void createOrUpdatePlayerProfile(
+      String nickname, String emoji, Map<String, dynamic> team) {
     var uid = _firebase.getUidOrNull();
     if (uid == null) return;
 
     _database
         .collection('players')
         .doc(uid)
-        .set({'nickname': nickname, 'emoji': emoji}, SetOptions(merge: true))
+        .set({'nickname': nickname, 'emoji': emoji, 'team': team},
+            SetOptions(merge: true))
         .then((value) => print('User added'))
         .catchError((error) => print('Failed to add user: $error'));
   }
@@ -41,8 +43,13 @@ class Firestore {
       final result = await _database.collection('players').doc(uid).get();
       return result.data();
     } catch (err) {
+      print(err);
       return null;
     }
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> getTeams() {
+    return _database.collection('teams').snapshots();
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getMatchHistory(int sport) {
@@ -57,6 +64,7 @@ class Firestore {
   Stream<QuerySnapshot<Map<String, dynamic>>> getScoreboard(int sport) {
     final String fieldPath =
         sport == 0 ? "foosballStats.score" : "tableTennisStats.score";
+
     return _database
         .collection('players')
         .orderBy(fieldPath, descending: true)
