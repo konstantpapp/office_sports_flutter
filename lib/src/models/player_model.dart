@@ -41,9 +41,9 @@ class Player {
     return <String, dynamic>{
       "nickname": nickname,
       "emoji": emoji,
-      "foosballStats": foosballStats,
-      "tableTennisStats": tableTennisStats,
-      "team": team,
+      "foosballStats": foosballStats?.toMap(),
+      "tableTennisStats": tableTennisStats?.toMap(),
+      "team": team?.toMap(),
     };
   }
 }

@@ -11,4 +11,13 @@ class Stats {
         score = parsedJson['score'],
         matchesPlayed = parsedJson['matchesPlayed'],
         seasonWins = parsedJson['seasonWins'];
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      "sport": sport,
+      "score": score,
+      "matchesPlayed": matchesPlayed,
+      "seasonWins": seasonWins,
+    };
+  }
 }
