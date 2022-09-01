@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 import 'src/services/firestore_service.dart';
 import 'src/screens/welcome_page.dart';
 import 'src/screens/home_page.dart';
@@ -8,7 +9,9 @@ Map<String, dynamic>? profileData;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   profileData = await firestore.getPlayerProfile();
   runApp(MyApp(profileData: profileData));
 }

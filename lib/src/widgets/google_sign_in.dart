@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import '../services/firebase_service.dart';
 import '../services/firestore_service.dart';
 import '../screens/home_page.dart';
@@ -27,30 +26,24 @@ class _GoogleSignInState extends State<GoogleSignIn> {
                   isLoading = true;
                 });
                 FirebaseService service = FirebaseService();
-                try {
-                  await service.signInwithGoogle();
-                  if (!mounted) return;
-                  final profileData = await firestore.getPlayerProfile();
-                  if (profileData == null) {
-                    Navigator.pushNamedAndRemoveUntil(
+                print('here');
+                await service.signInwithGoogle();
+                final profileData = await firestore.getPlayerProfile();
+                if (profileData == null) {
+                  Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    '/home',
+                    (route) => false,
+                  );
+                } else {
+                  Navigator.pushAndRemoveUntil(
                       context,
-                      '/home',
-                      (route) => false,
-                    );
-                  } else {
-                    Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => HomePage(
-                            profileData: profileData,
-                          ),
+                      MaterialPageRoute(
+                        builder: (context) => HomePage(
+                          profileData: profileData,
                         ),
-                        (route) => false);
-                  }
-                } catch (e) {
-                  if (e is FirebaseAuthException) {
-                    showMessage(e.message!);
-                  }
+                      ),
+                      (route) => false);
                 }
                 setState(() {
                   isLoading = false;
