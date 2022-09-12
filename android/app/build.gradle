@@ -58,7 +58,7 @@ android {
        release {
            keyAlias System.getenv('KEY_ALIAS')
            keyPassword System.getenv('STORE_PASSWORD')
-           storeFile file(System.getenv('STORE_FILE'))
+           storeFile System.getenv('STORE_FILE') ? file(System.getenv('STORE_FILE')) : null
            storePassword System.getenv('STORE_PASSWORD')
        }
    }
