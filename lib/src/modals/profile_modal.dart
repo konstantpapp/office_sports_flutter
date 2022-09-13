@@ -24,6 +24,8 @@ class ProfileModalState extends State<ProfileModal> with ValidationMixin {
   late String nickname;
   late String emoji;
   late String teamName;
+  String dropdownTeamName = '';
+  late String? teamId;
   late Team chosenTeam;
   late bool isExistingPlayer;
 
@@ -34,6 +36,7 @@ class ProfileModalState extends State<ProfileModal> with ValidationMixin {
     if (isExistingPlayer) {
       nickname = widget.player!.nickname;
       emoji = widget.player!.emoji;
+      teamId = widget.player!.teamId;
       teamName = widget.player!.team!.name;
       return;
     }
@@ -237,6 +240,9 @@ class ProfileModalState extends State<ProfileModal> with ValidationMixin {
             Map<String, dynamic> data =
                 document.data()! as Map<String, dynamic>;
             Team team = Team(document.id, data['name']);
+            if (isExistingPlayer && teamId == team.id) {
+              chosenTeam = team;
+            }
             return DropdownMenuItem<String>(
               value: team.name,
               child: Text(team.name),

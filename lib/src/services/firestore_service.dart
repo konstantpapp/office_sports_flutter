@@ -52,21 +52,25 @@ class Firestore {
     return _database.collection('teams').snapshots();
   }
 
-  Stream<QuerySnapshot<Map<String, dynamic>>> getMatchHistory(int sport) {
+  Stream<QuerySnapshot<Map<String, dynamic>>> getMatchHistory(
+      int sport, String? teamId) {
     return _database
         .collection('matches')
         .where('sport', isEqualTo: sport)
+        .where('teamId', isEqualTo: teamId)
         .orderBy('date', descending: true)
         .limit(_maxResultsInRecentMatches)
         .snapshots();
   }
 
-  Stream<QuerySnapshot<Map<String, dynamic>>> getScoreboard(int sport) {
+  Stream<QuerySnapshot<Map<String, dynamic>>> getScoreboard(
+      int sport, String? teamId) {
     final String fieldPath =
         sport == 0 ? "foosballStats.score" : "tableTennisStats.score";
 
     return _database
         .collection('players')
+        .where('teamId', isEqualTo: teamId)
         .orderBy(fieldPath, descending: true)
         .limit(_maxResultsInScoreboard)
         .snapshots();
