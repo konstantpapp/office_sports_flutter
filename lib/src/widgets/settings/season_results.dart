@@ -156,7 +156,10 @@ class SeasonResultsState extends State<SeasonResults> {
                                 ),
                                 subtitle: Text(DateFormat('MMMM yyyy')
                                     .format(season.date)),
-                                trailing: const Text('🏖'),
+                                trailing: const Text(
+                                  '🏖',
+                                  style: TextStyle(fontSize: 20),
+                                ),
                               ),
                             ],
                           ));
