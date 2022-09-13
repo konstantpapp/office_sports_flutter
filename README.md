@@ -13,5 +13,3 @@ Partner project to [Office Sports (iOS)](https://github.com/oyvinddd/officesport
 3. Go to the firebase project -> project settings -> your apps -> add fingerprint
 
 4. Paste the SHA1 and click save
-
-# office_sports_android

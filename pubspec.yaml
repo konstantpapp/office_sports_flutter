@@ -37,6 +37,7 @@ dependencies:
   qr_flutter: ^4.0.0
   qr_code_scanner: ^1.0.0
   http: ^0.13.5
+  confetti: ^0.7.0
 
   flutter:
     sdk: flutter
