@@ -57,7 +57,7 @@ class Firestore {
     return _database
         .collection('matches')
         .where('sport', isEqualTo: sport)
-        .where('teamId', isEqualTo: teamId)
+        //.where('teamId', isEqualTo: teamId)
         .orderBy('date', descending: true)
         .limit(_maxResultsInRecentMatches)
         .snapshots();
@@ -70,7 +70,7 @@ class Firestore {
 
     return _database
         .collection('players')
-        .where('teamId', isEqualTo: teamId)
+        //.where('teamId', isEqualTo: teamId)
         .orderBy(fieldPath, descending: true)
         .limit(_maxResultsInScoreboard)
         .snapshots();
