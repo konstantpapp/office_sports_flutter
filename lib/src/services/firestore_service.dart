@@ -72,6 +72,14 @@ class Firestore {
         .snapshots();
   }
 
+  Stream<QuerySnapshot<Map<String, dynamic>>> getSeasonStats() {
+    return _database
+        .collection('seasons')
+        .orderBy('date', descending: true)
+        .limit(12)
+        .snapshots();
+  }
+
   Future<http.Response?>? registerMatch(MatchRegistration registration) async {
     if (registration.winnerId == registration.loserId) {
       return null;
