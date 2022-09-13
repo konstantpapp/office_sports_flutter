@@ -7,14 +7,10 @@ class Player {
   final Stats? foosballStats;
   final Stats? tableTennisStats;
   final Team? team;
+  final String? teamId;
 
-  Player(
-    this.nickname,
-    this.emoji, [
-    this.foosballStats,
-    this.tableTennisStats,
-    this.team,
-  ]);
+  Player(this.nickname, this.emoji,
+      [this.foosballStats, this.tableTennisStats, this.team, this.teamId]);
 
   Stats? statsForSport(int sport) {
     return sport == 0 ? foosballStats : tableTennisStats;
@@ -35,7 +31,8 @@ class Player {
             : null,
         team = parsedJson['team'] != null
             ? Team.fromJson(parsedJson['team'])
-            : null;
+            : null,
+        teamId = parsedJson['teamId'];
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -44,6 +41,7 @@ class Player {
       "foosballStats": foosballStats?.toMap(),
       "tableTennisStats": tableTennisStats?.toMap(),
       "team": team?.toMap(),
+      "teamId": teamId,
     };
   }
 }

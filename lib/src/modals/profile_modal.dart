@@ -261,8 +261,7 @@ class ProfileModalState extends State<ProfileModal> with ValidationMixin {
         if (formKey.currentState!.validate()) {
           formKey.currentState!.save();
           formKey.currentState!.reset();
-          firestore.createOrUpdatePlayerProfile(
-              nickname, emoji, chosenTeam.toMap());
+          firestore.createOrUpdatePlayerProfile(nickname, emoji, chosenTeam.id);
           Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(

@@ -24,14 +24,14 @@ class Firestore {
       _database.collection('seasons').snapshots();
 
   void createOrUpdatePlayerProfile(
-      String nickname, String emoji, Map<String, dynamic> team) {
+      String nickname, String emoji, String teamId) {
     var uid = _firebase.getUidOrNull();
     if (uid == null) return;
 
     _database
         .collection('players')
         .doc(uid)
-        .set({'nickname': nickname, 'emoji': emoji, 'team': team},
+        .set({'nickname': nickname, 'emoji': emoji, 'teamId': teamId},
             SetOptions(merge: true))
         .then((value) => print('User added'))
         .catchError((error) => print('Failed to add user: $error'));
