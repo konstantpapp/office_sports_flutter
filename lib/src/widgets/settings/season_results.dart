@@ -25,7 +25,7 @@ class SeasonResultsState extends State<SeasonResults> {
       duration: const Duration(days: 365),
     );
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      return _confettiController.play();
+      _confettiController.play();
     });
   }
 
@@ -39,7 +39,6 @@ class SeasonResultsState extends State<SeasonResults> {
   Widget build(context) {
     final Stream<QuerySnapshot> seasonResults = firestore.getSeasonStats();
     Size size = MediaQuery.of(context).size;
-    _confettiController.play();
     return Container(
       color: Constants.secondaryColor,
       height: size.height * 0.9,
