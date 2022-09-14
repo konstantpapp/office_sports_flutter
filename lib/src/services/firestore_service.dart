@@ -48,8 +48,9 @@ class Firestore {
     }
   }
 
-  Stream<QuerySnapshot<Map<String, dynamic>>> getTeams() {
-    return _database.collection('teams').snapshots();
+  Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>> getTeams() async {
+    final data = await _database.collection('teams').get();
+    return data.docs;
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getMatchHistory(

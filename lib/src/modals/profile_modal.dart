@@ -23,26 +23,27 @@ class ProfileModalState extends State<ProfileModal> with ValidationMixin {
 
   late String nickname;
   late String emoji;
-  late String teamName;
-  String dropdownTeamName = '';
+  late String dropdownTeamName = '';
   late String? teamId;
   late Team chosenTeam;
   late bool isExistingPlayer;
 
   @override
   void initState() {
-    isExistingPlayer = widget.player != null;
     super.initState();
+    isExistingPlayer = widget.player != null;
     if (isExistingPlayer) {
-      nickname = widget.player!.nickname;
-      emoji = widget.player!.emoji;
-      teamId = widget.player!.teamId;
-      teamName = widget.player!.team!.name;
+      setState(() {
+        nickname = widget.player!.nickname;
+        emoji = widget.player!.emoji;
+        teamId = widget.player!.teamId;
+      });
       return;
     }
-    teamName = '';
-    nickname = '';
-    emoji = Emojis().getRandom();
+    setState(() {
+      nickname = '';
+      emoji = Emojis().getRandom();
+    });
     WidgetsBinding.instance.addPostFrameCallback((_) {
       showModal(context);
     });
@@ -211,12 +212,28 @@ class ProfileModalState extends State<ProfileModal> with ValidationMixin {
   }
 
   Widget teamField(BuildContext context) {
-    final Stream<QuerySnapshot> teams = firestore.getTeams();
-    return StreamBuilder<QuerySnapshot>(
-      stream: teams,
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+    return FutureBuilder(
+      future: firestore.getTeams(),
+      builder: (context, snapshot) {
+        final data =
+            snapshot.data! as List<QueryDocumentSnapshot<Map<String, dynamic>>>;
+        final teams = data.map((QueryDocumentSnapshot snapshot) {
+          Map<String, dynamic> data = snapshot.data()! as Map<String, dynamic>;
+          Team team = Team(snapshot.id, data['name']);
+          return team;
+        }).toList();
+        if (isExistingPlayer &&
+            dropdownTeamName == '' &&
+            widget.player?.teamId != null) {
+          Future.delayed(Duration.zero, () async {
+            setState(() {
+              dropdownTeamName =
+                  teams.where((team) => team.id == teamId).first.name;
+            });
+          });
+        }
         return DropdownButton<String>(
-          value: teamName,
+          value: dropdownTeamName == '' ? teams[0].name : dropdownTeamName,
           icon: const Icon(
             Icons.arrow_downward,
             color: Constants.secondaryColor,
@@ -232,17 +249,10 @@ class ProfileModalState extends State<ProfileModal> with ValidationMixin {
           ),
           onChanged: (String? newValue) {
             setState(() {
-              teamName = newValue!;
+              dropdownTeamName = newValue!;
             });
           },
-          items: snapshot.data!.docs
-              .map<DropdownMenuItem<String>>((DocumentSnapshot document) {
-            Map<String, dynamic> data =
-                document.data()! as Map<String, dynamic>;
-            Team team = Team(document.id, data['name']);
-            if (isExistingPlayer && teamId == team.id) {
-              chosenTeam = team;
-            }
+          items: teams.map<DropdownMenuItem<String>>((Team team) {
             return DropdownMenuItem<String>(
               value: team.name,
               child: Text(team.name),
@@ -275,7 +285,7 @@ class ProfileModalState extends State<ProfileModal> with ValidationMixin {
                   profileData: {
                     'nickname': nickname,
                     'emoji': emoji,
-                    'team': chosenTeam.toMap(),
+                    'teamId': chosenTeam.id,
                   },
                 ),
               ),
