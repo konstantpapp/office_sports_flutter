@@ -26,7 +26,6 @@ class _GoogleSignInState extends State<GoogleSignIn> {
                   isLoading = true;
                 });
                 FirebaseService service = FirebaseService();
-                print('here');
                 await service.signInwithGoogle();
                 final profileData = await firestore.getPlayerProfile();
                 if (profileData == null) {

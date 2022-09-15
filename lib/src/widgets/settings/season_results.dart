@@ -20,10 +20,13 @@ class SeasonResultsState extends State<SeasonResults> {
 
   @override
   void initState() {
+    super.initState();
+    _confettiController = ConfettiController(
+      duration: const Duration(days: 365),
+    );
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _confettiController.play();
     });
-    super.initState();
   }
 
   @override

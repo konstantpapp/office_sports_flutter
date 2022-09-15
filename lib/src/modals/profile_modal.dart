@@ -60,6 +60,7 @@ class ProfileModalState extends State<ProfileModal> with ValidationMixin {
       isDismissible: false,
       isScrollControlled: true,
       enableDrag: false,
+      backgroundColor: Colors.transparent,
       builder: (BuildContext context) {
         return WillPopScope(
           onWillPop: () async {
@@ -75,9 +76,10 @@ class ProfileModalState extends State<ProfileModal> with ValidationMixin {
     Size size = MediaQuery.of(context).size;
     return Material(
       child: StatefulBuilder(builder: (context, setState) {
-        return Padding(
+        return Container(
           padding:
               EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+          color: Colors.black.withOpacity(0),
           child: Container(
             color: Constants.primaryColor,
             height: size.height * 0.95,
