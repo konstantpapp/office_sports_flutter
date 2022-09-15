@@ -36,7 +36,7 @@ class TableTennisPage extends StatelessWidget {
               Expanded(
                 child: Container(
                   padding: const EdgeInsets.only(left: 15.0, right: 15.0),
-                  child: TableTabs(sport: 1),
+                  child: TableTabs(sport: 1, player: player),
                 ),
               ),
             ],

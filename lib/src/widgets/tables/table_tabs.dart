@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:office_sports_android/src/models/navigation_keys.dart';
 import 'match_history.dart';
 import '../../shared/constants.dart';
+import '../../models/player_model.dart';
 import 'scoreboard.dart';
 
 class TableTabs extends StatefulWidget {
-  const TableTabs({Key? key, required this.sport}) : super(key: key);
+  const TableTabs({Key? key, required this.sport, required this.player})
+      : super(key: key);
   final int sport;
+  final Player player;
 
   @override
   TableTabsState createState() => TableTabsState();
@@ -49,8 +52,8 @@ class TableTabsState extends State<TableTabs>
           builder: (_) => TabBarView(
             controller: _tabController,
             children: [
-              Scoreboard(sport: widget.sport),
-              MatchHistory(sport: widget.sport),
+              Scoreboard(sport: widget.sport, teamId: widget.player.teamId),
+              MatchHistory(sport: widget.sport, teamId: widget.player.teamId),
             ],
           ),
         ),

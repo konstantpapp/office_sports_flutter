@@ -5,8 +5,9 @@ import '../../services/firestore_service.dart';
 import '../../models/player_model.dart';
 
 class Scoreboard extends StatefulWidget {
-  const Scoreboard({required this.sport});
+  const Scoreboard({required this.sport, this.teamId});
   final int sport;
+  final String? teamId;
   @override
   ScoreboardState createState() => ScoreboardState();
 }
@@ -15,7 +16,7 @@ class ScoreboardState extends State<Scoreboard> {
   @override
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> scoreboard =
-        firestore.getScoreboard(widget.sport);
+        firestore.getScoreboard(widget.sport, widget.teamId);
     return StreamBuilder<QuerySnapshot>(
       stream: scoreboard,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {

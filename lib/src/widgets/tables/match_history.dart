@@ -5,8 +5,9 @@ import '../../models/match_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class MatchHistory extends StatefulWidget {
-  const MatchHistory({required this.sport});
+  const MatchHistory({required this.sport, this.teamId});
   final int sport;
+  final String? teamId;
   @override
   MatchHistoryState createState() => MatchHistoryState();
 }
@@ -15,7 +16,7 @@ class MatchHistoryState extends State<MatchHistory> {
   @override
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> matchHistory =
-        firestore.getMatchHistory(widget.sport);
+        firestore.getMatchHistory(widget.sport, widget.teamId);
     return StreamBuilder<QuerySnapshot>(
       stream: matchHistory,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {

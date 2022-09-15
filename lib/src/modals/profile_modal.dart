@@ -23,23 +23,27 @@ class ProfileModalState extends State<ProfileModal> with ValidationMixin {
 
   late String nickname;
   late String emoji;
-  late String teamName;
+  late String dropdownTeamName = '';
+  late String? teamId;
   late Team chosenTeam;
   late bool isExistingPlayer;
 
   @override
   void initState() {
-    isExistingPlayer = widget.player != null;
     super.initState();
+    isExistingPlayer = widget.player != null;
     if (isExistingPlayer) {
-      nickname = widget.player!.nickname;
-      emoji = widget.player!.emoji;
-      teamName = widget.player!.team!.name;
+      setState(() {
+        nickname = widget.player!.nickname;
+        emoji = widget.player!.emoji;
+        teamId = widget.player!.teamId;
+      });
       return;
     }
-    teamName = '';
-    nickname = '';
-    emoji = Emojis().getRandom();
+    setState(() {
+      nickname = '';
+      emoji = Emojis().getRandom();
+    });
     WidgetsBinding.instance.addPostFrameCallback((_) {
       showModal(context);
     });
@@ -56,6 +60,7 @@ class ProfileModalState extends State<ProfileModal> with ValidationMixin {
       isDismissible: false,
       isScrollControlled: true,
       enableDrag: false,
+      backgroundColor: Colors.transparent,
       builder: (BuildContext context) {
         return WillPopScope(
           onWillPop: () async {
@@ -75,6 +80,15 @@ class ProfileModalState extends State<ProfileModal> with ValidationMixin {
           padding:
               EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
           child: Container(
+            // decoration: BoxDecoration(
+            //   color: Constants.primaryColor,
+            //   border: Border.all(),
+            //   borderRadius: const BorderRadius.only(
+            //     topLeft: Radius.circular(40),
+            //     topRight: Radius.circular(40),
+            //   ),
+            //   //other code
+            // ),
             color: Constants.primaryColor,
             height: size.height * 0.95,
             child: Form(
@@ -208,12 +222,28 @@ class ProfileModalState extends State<ProfileModal> with ValidationMixin {
   }
 
   Widget teamField(BuildContext context) {
-    final Stream<QuerySnapshot> teams = firestore.getTeams();
-    return StreamBuilder<QuerySnapshot>(
-      stream: teams,
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+    return FutureBuilder(
+      future: firestore.getTeams(),
+      builder: (context, snapshot) {
+        final data =
+            snapshot.data! as List<QueryDocumentSnapshot<Map<String, dynamic>>>;
+        final teams = data.map((QueryDocumentSnapshot snapshot) {
+          Map<String, dynamic> data = snapshot.data()! as Map<String, dynamic>;
+          Team team = Team(snapshot.id, data['name']);
+          return team;
+        }).toList();
+        if (isExistingPlayer &&
+            dropdownTeamName == '' &&
+            widget.player?.teamId != null) {
+          Future.delayed(Duration.zero, () async {
+            setState(() {
+              dropdownTeamName =
+                  teams.where((team) => team.id == teamId).first.name;
+            });
+          });
+        }
         return DropdownButton<String>(
-          value: teamName,
+          value: dropdownTeamName == '' ? teams[0].name : dropdownTeamName,
           icon: const Icon(
             Icons.arrow_downward,
             color: Constants.secondaryColor,
@@ -229,14 +259,10 @@ class ProfileModalState extends State<ProfileModal> with ValidationMixin {
           ),
           onChanged: (String? newValue) {
             setState(() {
-              teamName = newValue!;
+              dropdownTeamName = newValue!;
             });
           },
-          items: snapshot.data!.docs
-              .map<DropdownMenuItem<String>>((DocumentSnapshot document) {
-            Map<String, dynamic> data =
-                document.data()! as Map<String, dynamic>;
-            Team team = Team(document.id, data['name']);
+          items: teams.map<DropdownMenuItem<String>>((Team team) {
             return DropdownMenuItem<String>(
               value: team.name,
               child: Text(team.name),
@@ -269,7 +295,7 @@ class ProfileModalState extends State<ProfileModal> with ValidationMixin {
                   profileData: {
                     'nickname': nickname,
                     'emoji': emoji,
-                    'team': chosenTeam.toMap(),
+                    'teamId': chosenTeam.id,
                   },
                 ),
               ),

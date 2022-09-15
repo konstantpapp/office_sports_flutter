@@ -41,7 +41,7 @@ class Settings extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
                   child: Container(
                     height: 300,
-                    color: Colors.white,
+                    color: Colors.transparent,
                     child: ListView.builder(
                       itemCount: options.length,
                       itemBuilder: (_, int index) {
