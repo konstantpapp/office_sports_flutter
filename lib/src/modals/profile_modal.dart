@@ -76,11 +76,19 @@ class ProfileModalState extends State<ProfileModal> with ValidationMixin {
     Size size = MediaQuery.of(context).size;
     return Material(
       child: StatefulBuilder(builder: (context, setState) {
-        return Container(
+        return Padding(
           padding:
               EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-          color: Colors.black.withOpacity(0),
           child: Container(
+            // decoration: BoxDecoration(
+            //   color: Constants.primaryColor,
+            //   border: Border.all(),
+            //   borderRadius: const BorderRadius.only(
+            //     topLeft: Radius.circular(40),
+            //     topRight: Radius.circular(40),
+            //   ),
+            //   //other code
+            // ),
             color: Constants.primaryColor,
             height: size.height * 0.95,
             child: Form(
