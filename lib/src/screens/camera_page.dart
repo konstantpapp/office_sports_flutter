@@ -10,6 +10,8 @@ import '../services/firebase_service.dart';
 import '../services/firestore_service.dart';
 import '../models/match_registration_model.dart';
 
+import 'package:confetti/confetti.dart';
+
 class CameraPage extends StatefulWidget {
   const CameraPage({super.key, required this.player});
   final Player player;
@@ -23,6 +25,7 @@ class CameraPage extends StatefulWidget {
 class CameraPageState extends State<CameraPage> {
   CameraPageState({required this.player});
   final Player player;
+  late ConfettiController _confettiController;
 
   Barcode? result;
   QRViewController? controller;
@@ -33,6 +36,14 @@ class CameraPageState extends State<CameraPage> {
     controller.scannedDataStream.listen((scanData) {
       readQr(scanData);
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _confettiController = ConfettiController(
+      duration: const Duration(seconds: 2),
+    );
   }
 
   @override
@@ -57,6 +68,7 @@ class CameraPageState extends State<CameraPage> {
   @override
   void dispose() {
     controller?.dispose();
+    _confettiController.dispose();
     super.dispose();
   }
 
@@ -77,6 +89,7 @@ class CameraPageState extends State<CameraPage> {
             TextButton(
               onPressed: () {
                 final response = firestore.registerMatch(registration);
+                _confettiController.play();
                 ScaffoldMessenger.of(context).showSnackBar(
                   response != null
                       ? snackBarSuccess(context)
@@ -127,6 +140,21 @@ class CameraPageState extends State<CameraPage> {
             child: const Text(
               "If you're the winner of a match, scan\nthe loser's QR code to register the\nmatch result.",
               style: TextStyle(color: Constants.primaryTextColor, fontSize: 16),
+            ),
+          ),
+          Align(
+            alignment: Alignment.topCenter,
+            child: ConfettiWidget(
+              confettiController: _confettiController,
+              blastDirectionality: BlastDirectionality.explosive,
+              canvas: MediaQuery.of(context).size * 2,
+              colors: const [
+                Colors.green,
+                Colors.blue,
+                Colors.pink,
+                Colors.orange,
+                Colors.purple
+              ],
             ),
           ),
         ],
