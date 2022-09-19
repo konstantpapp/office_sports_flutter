@@ -32,7 +32,10 @@ class CameraPageState extends State<CameraPage> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
 
   void _onQRViewCreated(QRViewController controller) {
-    setState(() => this.controller = controller);
+    setState(() {
+      this.controller = controller;
+      controller.resumeCamera();
+    });
     controller.scannedDataStream.listen((scanData) {
       readQr(scanData);
     });
