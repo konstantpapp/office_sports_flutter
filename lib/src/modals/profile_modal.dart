@@ -80,15 +80,6 @@ class ProfileModalState extends State<ProfileModal> with ValidationMixin {
           padding:
               EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
           child: Container(
-            // decoration: BoxDecoration(
-            //   color: Constants.primaryColor,
-            //   border: Border.all(),
-            //   borderRadius: const BorderRadius.only(
-            //     topLeft: Radius.circular(40),
-            //     topRight: Radius.circular(40),
-            //   ),
-            //   //other code
-            // ),
             color: Constants.primaryColor,
             height: size.height * 0.95,
             child: Form(

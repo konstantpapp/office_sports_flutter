@@ -24,7 +24,7 @@ class Firestore {
       _database.collection('seasons').snapshots();
 
   void createOrUpdatePlayerProfile(
-      String nickname, String emoji, String teamId) {
+      String nickname, String emoji, String? teamId) {
     var uid = _firebase.getUidOrNull();
     if (uid == null) return;
 

@@ -1,11 +1,11 @@
 class Team {
-  String id;
+  String? id;
   String name;
 
-  Team(this.id, this.name);
+  Team(this.name, [this.id]);
 
   Team.fromJson(Map<String, dynamic> parsedJson)
-      : id = parsedJson['id'],
+      : id = parsedJson['id'] ?? null,
         name = parsedJson['name'];
 
   Map<String, dynamic> toMap() {
