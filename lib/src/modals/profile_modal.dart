@@ -220,7 +220,7 @@ class ProfileModalState extends State<ProfileModal> with ValidationMixin {
             snapshot.data! as List<QueryDocumentSnapshot<Map<String, dynamic>>>;
         final teams = data.map((QueryDocumentSnapshot snapshot) {
           Map<String, dynamic> data = snapshot.data()! as Map<String, dynamic>;
-          Team team = Team(snapshot.id, data['name']);
+          Team team = Team(data['name'], snapshot.id);
           return team;
         }).toList();
         if (isExistingPlayer &&
@@ -228,8 +228,8 @@ class ProfileModalState extends State<ProfileModal> with ValidationMixin {
             widget.player?.teamId != null) {
           Future.delayed(Duration.zero, () async {
             setState(() {
-              dropdownTeamName =
-                  teams.where((team) => team.id == teamId).first.name;
+              chosenTeam = teams.where((team) => team.id == teamId).first;
+              dropdownTeamName = chosenTeam.name;
             });
           });
         }
